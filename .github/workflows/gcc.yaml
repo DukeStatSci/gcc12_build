@@ -61,9 +61,11 @@ jobs:
     
     - name: make gcc
       run: |
+        cd gcc-12.3.0/build && \
         make -j4
 
     - name: make install gcc
       run: |
-        mkdir ../../gcc-build/ && \
+        mkdir gcc-build/ && \
+        cd gcc-12.3.0/build && \
         make DESTDIR=`pwd`/../../gcc-build/ install
