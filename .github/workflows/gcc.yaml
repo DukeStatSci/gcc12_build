@@ -2,6 +2,7 @@ on: push
 name: Build GCC 12
 jobs:
   build-gcc:
+    runs-on: ubuntu-latest
     container:
       image: fedora:38
     steps:
