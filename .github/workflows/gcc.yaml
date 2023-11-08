@@ -36,7 +36,7 @@ jobs:
 
     - name: Configure gcc
       run: |
-        cd /gcc-12.3.0/build && \
+        cd gcc-12.3.0/build && \
         ../configure --enable-bootstrap
         --enable-languages=c,c++,fortran,objc,obj-c++,ada,go,d,lto \
         --prefix=/usr \
