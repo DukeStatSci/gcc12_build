@@ -21,10 +21,18 @@ jobs:
       run: |
         wget https://ftp.gnu.org/gnu/gcc/gcc-12.3.0/gcc-12.3.0.tar.xz
 
+    - name: pwd
+      run: |
+        pwd
+
     - name: Unzip gcc-gdc
       run: |
-        tar -xvf gcc-12.3.0.tar.xz && \
-        mkdir /gcc-12.3.0/build 
+        tar -xf gcc-12.3.0.tar.xz && \
+        mkdir gcc-12.3.0/build 
+
+    - name: pwd
+      run: |
+        pwd
 
     - name: Configure gcc
       run: |
@@ -46,12 +54,16 @@ jobs:
         --with-arch_32=i686 --build=x86_64-redhat-linux \
         --with-build-config=bootstrap-lto --enable-link-serialization=1 \
         --with-default-libstdcxx-abi=new --with-build-config=bootstrap-lto
+
+    - name: pwd
+      run: |
+        pwd
     
     - name: make gcc
       run: |
-        cd /gcc-12.3.0/build && make -j4
+        make -j4
 
     - name: make install gcc
       run: |
-        mkdir /gcc-build/ && \
-        cd /gcc-12.3.0/build && make DESTDIR=/gcc-build/ install
+        mkdir ../../gcc-build/ && \
+        make DESTDIR=`pwd`/../../gcc-build/ install
