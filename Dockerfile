@@ -14,6 +14,6 @@ RUN dnf update -y \
           libgphobos-static make diffutils \
           wget xz ruby-devel fedora-packager rpmdevtools
 
-ADD ./build.sh /build.sh
+ADD build.sh /
 
-CMD [ "build.sh" ]
+CMD [ "sh", "/build.sh" ]
