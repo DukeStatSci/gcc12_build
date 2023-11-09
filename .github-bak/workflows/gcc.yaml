@@ -10,29 +10,25 @@ jobs:
       run: |
         dnf update -y
 
+    - name: Install developer tools
+      run: |
+        dnf install @development-tools
+
     - name: Install dependencies
       run: |
         dnf install -y mpfr-devel gmp-devel libmpc-devel zlib-devel \
           glibc-devel.i686 glibc-devel isl-devel g++ gcc-gnat gcc-gdc \
-          libgphobos-static make\
+          libgphobos-static make diffutils \
           wget xz
 
     - name: Download gcc
       run: |
         wget https://ftp.gnu.org/gnu/gcc/gcc-12.3.0/gcc-12.3.0.tar.xz
 
-    - name: pwd
-      run: |
-        pwd
-
     - name: Unzip gcc-gdc
       run: |
         tar -xf gcc-12.3.0.tar.xz && \
         mkdir gcc-12.3.0/build 
-
-    - name: pwd
-      run: |
-        pwd
 
     - name: Configure gcc
       run: |
@@ -54,10 +50,6 @@ jobs:
         --with-arch_32=i686 --build=x86_64-redhat-linux \
         --with-build-config=bootstrap-lto --enable-link-serialization=1 \
         --with-default-libstdcxx-abi=new --with-build-config=bootstrap-lto
-
-    - name: pwd
-      run: |
-        pwd
     
     - name: make gcc
       run: |
@@ -68,4 +60,16 @@ jobs:
       run: |
         mkdir gcc-build/ && \
         cd gcc-12.3.0/build && \
-        make DESTDIR=`pwd`/../../gcc-build/ install
+        make DESTDIR=../../gcc-build/ install
+
+    - name: fpm dependencies
+      run: |
+        dnf install -y ruby-devel fedora-packager rpmdevtools
+
+    - name: install fpm
+      run: |
+        gem install fpm
+
+    - name: Build rpm
+      run: |
+        fpm -s dir -t rpm -C gcc-build/ --name gcc12 --version 12.3.0 --iteration 1 --description "gcc v12.3.0" .
