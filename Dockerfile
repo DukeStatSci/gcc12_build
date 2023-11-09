@@ -16,4 +16,6 @@ RUN dnf update -y \
 
 ADD build.sh /
 
-#CMD [ "sh", "/build.sh" ]
+RUN chmod +x /build.sh
+
+ENTRYPOINT ["/build.sh"]
