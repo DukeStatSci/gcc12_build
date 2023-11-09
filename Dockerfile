@@ -16,4 +16,4 @@ RUN dnf update -y \
 
 ADD build.sh /
 
-CMD [ "sh", "/build.sh" ]
+#CMD [ "sh", "/build.sh" ]
