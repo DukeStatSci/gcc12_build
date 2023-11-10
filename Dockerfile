@@ -12,7 +12,8 @@ RUN dnf update -y \
     && dnf install -y mpfr-devel gmp-devel libmpc-devel zlib-devel \
           glibc-devel.i686 glibc-devel isl-devel g++ gcc-gnat gcc-gdc \
           libgphobos-static make diffutils \
-          wget xz ruby-devel fedora-packager rpmdevtools
+          wget xz ruby-devel fedora-packager rpmdevtools \
+    && gem install fpm
 
 ADD build.sh /
 
