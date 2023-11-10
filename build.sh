@@ -29,5 +29,6 @@ cd gcc-${GCC_VERSION}/build \
 
 
 fpm -s dir -t rpm -C /gcc-install/ --name gcc${GCC_VERSION_SHORT} \
-    --version ${GCC_VERSION} --iteration 1 --description "gcc v${GCC_VERSION}" /out
-       
+    --version ${GCC_VERSION} --iteration 1 --description "gcc v${GCC_VERSION}" .
+
+mv *.rpm /out/
